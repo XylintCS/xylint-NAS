@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" />
+            <h1>Create Account</h1>
+            <p class="subtitle">Create account to get started</p>
+        </div>
+
+        <form method="POST" autocomplete="off" novalidate>
+            {{ form.hidden_tag() }}
+
+            <div class="input-group{% if form.username.errors %} has-error{% endif %}">
+                <img src="{{ url_for('static', filename='icons/user.svg') }}" alt="User Icon" class="input-icon" />
+                {{ form.username(class="form-control", autofocus=True, placeholder="Username") }}
+                {% for error in form.username.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="input-group{% if form.password.errors %} has-error{% endif %}">
+                <img src="{{ url_for('static', filename='icons/psw.svg') }}" alt="Password Icon" class="input-icon" />
+                {{ form.password(class="form-control", placeholder="Password") }}
+                {% for error in form.password.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="input-group{% if form.confirm.errors %} has-error{% endif %}">
+                <img src="{{ url_for('static', filename='icons/psw.svg') }}" alt="Confirm Password Icon" class="input-icon" />
+                {{ form.confirm(class="form-control", placeholder="Confirm Password") }}
+                {% for error in form.confirm.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+        </form>
+
+        <div class="auth-footer">
+            <a href="{{ url_for('auth.login') }}">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% set show_navbar = False %}
